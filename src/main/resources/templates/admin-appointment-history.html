@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Appointment History</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-4">
+
+    <!-- Header + Back Button -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>📅 Appointment History</h3>
+
+        <!-- Back Button -->
+        <a href="/admin/dashboard" class="btn btn-secondary">
+            ⬅ Back to Home
+        </a>
+    </div>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Patient</th>
+                <th>Doctor</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <!-- Appointment rows -->
+            <tr th:each="a : ${appointments}">
+                <td th:text="${a.id}"></td>
+                <td th:text="${a.patientName}"></td>
+                <td th:text="${a.doctorName}"></td>
+                <td th:text="${a.appointmentDate}"></td>
+                <td>
+                    <span
+                        th:classappend="
+                            ${a.status == 'ASSIGNED'} ? 'badge bg-warning' :
+                            (${a.status == 'APPROVED'} ? 'badge bg-success' :
+                            (${a.status == 'REJECTED'} ? 'badge bg-danger' : 'badge bg-secondary'))"
+                        th:text="${a.status}">
+                    </span>
+                </td>
+            </tr>
+
+            <!-- Empty message -->
+            <tr th:if="${appointments.isEmpty()}">
+                <td colspan="5" class="text-center text-muted">
+                    No appointment history found
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

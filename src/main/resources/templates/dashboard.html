@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<title>Dashboard</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<style>
+		body {
+			min-height: 100vh;
+		}
+
+		.sidebar {
+			height: 100vh;
+			background-color: #212529;
+		}
+
+		.sidebar a {
+			color: white;
+			padding: 12px;
+			display: block;
+			text-decoration: none;
+		}
+
+		.sidebar a:hover {
+			background-color: #343a40;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row"> <!-- SIDEBAR -->
+			<div class="col-md-2 sidebar p-0">
+				<h4 class="text-white text-center py-3 border-bottom">Dashboard</h4>
+				<div th:if="${role == 'ADMIN'}"> <a th:href="@{/admin/doctors}">👨‍⚕️ Manage Doctors</a> <a
+						th:href="@{/admin/patients}">🧑‍🤝‍🧑 Manage Patients</a> <a th:href="@{/admin/appointments}">📄
+						View Appointments</a> <a th:href="@{/admin/appointments/history}">📅 Appointments History</a>
+				</div>
+				<div th:if="${role == 'DOCTOR'}"> <a th:href="@{/doctor/appointments}">📅 My Appointments</a> <a
+						th:href="@{/doctor/prescription}">📝 Add Prescription</a> <a
+						th:href="@{/doctor/prescriptions}">📜 View Prescriptions</a> </div>
+				<div th:if="${role == 'PATIENT'}"> <a th:href="@{/patient/doctors}">👨‍⚕️ My Doctor</a> <a
+						th:href="@{/patient/myappointments}">📅 My Appointments</a> <a
+						th:href="@{/patient/prescriptions}">📜 My Prescriptions</a> </div> <a href="javascript:void(0)"
+					onclick="confirmLogout()" class="text-danger"> 🚪 Logout </a>
+			</div> <!-- MAIN -->
+			<div class="col-md-10">
+				<div class="d-flex justify-content-between p-3 border-bottom bg-light">
+					<h5>Role: <span class="badge bg-primary" th:text="${role}"></span></h5> <strong>User: <span
+							th:text="${username}"></span></strong>
+				</div>
+				<div class="p-4">
+					<h3>Welcome [[${username}]] 👋</h3>
+				</div>
+			</div>
+		</div>
+	</div> <!-- SweetAlert Success -->
+	<script
+		th:if="${param.loginSuccess}"> Swal.fire({icon: 'success', title: 'Login Successful!', text: 'Welcome [[${username}]] 👋', timer: 2000, showConfirmButton: false}); </script>
+	<script
+		th:if="${loginSuccess}"> Swal.fire({icon: 'success', title: 'Login Successful!', text: 'Welcome [[${username}]] 👋', timer: 2000, showConfirmButton: false}); </script>
+	<script> function confirmLogout() {Swal.fire({title: 'Are you sure?', text: "You will be logged out of your session", icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', cancelButtonColor: '#3085d6', confirmButtonText: 'Yes, Logout', cancelButtonText: 'Cancel'}).then((result) => {if (result.isConfirmed) {window.location.href = '/logout';} });} </script>
+	<script
+		th:if="${appointmentBooked}"> Swal.fire({icon: 'success', title: 'Appointment Booked!', text: 'Your appointment request has been submitted successfully.', timer: 2500, showConfirmButton: false}); </script>
+</body>
+
+</html>

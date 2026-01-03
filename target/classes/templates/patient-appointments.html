@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Appointment</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+
+            <!-- Card -->
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-primary text-white text-center rounded-top-4">
+                    <h4 class="mb-0">
+                        <i class="bi bi-calendar-check"></i>
+                        Book Appointment
+                    </h4>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <!-- FORM -->
+                    <form th:action="@{/patient/appointment}"
+                          th:object="${appointment}"
+                          method="post"
+                          class="needs-validation"
+                          novalidate>
+
+                        <!-- Hidden Fields -->
+                        <input type="hidden" th:field="*{doctorId}">
+                        <input type="hidden" th:field="*{doctorName}">
+
+                        <!-- Doctor Name -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">
+                                <i class="bi bi-person-badge"></i> Doctor
+                            </label>
+                            <input type="text"
+                                   class="form-control"
+                                   th:value="${appointment.doctorName}"
+                                   readonly>
+                        </div>
+
+                        <!-- Appointment Date -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">
+                                <i class="bi bi-calendar-date"></i> Appointment Date
+                            </label>
+                            <input type="date"
+                                   class="form-control"
+                                   th:field="*{appointmentDate}"
+                                   min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
+                                   required>
+                            <div class="invalid-feedback">
+                                Please select a valid appointment date.
+                            </div>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a th:href="@{/patient/doctors}"
+                               class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Back
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-success px-4">
+                                <i class="bi bi-check-circle"></i> Confirm
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+            <!-- Info Text -->
+            <p class="text-center text-muted mt-3 small">
+                Please ensure the appointment date is correct before confirming.
+            </p>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Client-side validation -->
+<script>
+    (() => {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
+
+</body>
+</html>

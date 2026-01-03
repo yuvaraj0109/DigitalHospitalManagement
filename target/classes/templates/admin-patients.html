@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	
+    <title>Manage Patients</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>🧑‍🤝‍🧑 Manage Patients</h3>
+        <a href="/admin/dashboard" class="btn btn-secondary">⬅ Back to Home</a>
+    </div>
+
+    <!-- NO PATIENTS -->
+    <div th:if="${#lists.isEmpty(patients)}" class="alert alert-warning">
+        No patients found.
+    </div>
+
+    <!-- PATIENT TABLE -->
+    <table class="table table-bordered table-striped" th:if="${!#lists.isEmpty(patients)}">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="patient : ${patients}">
+            <td th:text="${patient.id}"></td>
+
+            <!-- UPDATE FORM -->
+            <td>
+                <form th:action="@{/admin/patients/update}" method="post" class="d-flex gap-2">
+                    <input type="hidden" name="id" th:value="${patient.id}">
+                    <input type="text"
+                           name="name"
+                           th:value="${patient.name}"
+                           class="form-control"
+                           required>
+                    <button type="submit" class="btn btn-success btn-sm">
+                        Update
+                    </button>
+                </form>
+            </td>
+
+            <!-- DELETE -->
+            <td>
+                <a th:href="@{/admin/patients/delete/{id}(id=${patient.id})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('Delete this patient?')">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<!-- PATIENT UPDATE SUCCESS -->
+<script th:if="${patientUpdateSuccess}">
+    Swal.fire({
+        icon: 'success',
+        title: 'Updated!',
+        text: 'Patient details updated successfully',
+        timer: 2000,
+        showConfirmButton: false
+    });
+</script>
+
+<!-- PATIENT DELETE SUCCESS -->
+<script th:if="${patientDeleteSuccess}">
+    Swal.fire({
+        icon: 'success',
+        title: 'Deleted!',
+        text: 'Patient deleted successfully',
+        timer: 2000,
+        showConfirmButton: false
+    });
+</script>
+
+
+</body>
+</html>
