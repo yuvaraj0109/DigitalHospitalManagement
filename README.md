@@ -1,37 +1,40 @@
 🏥 Digital Hospital Management System
 
-A web-based hospital management application that streamlines appointment scheduling, doctor–patient interaction, and prescription management using a role-based system.
+A web-based hospital workflow management system that enables seamless coordination between Admins, Doctors, and Patients.
+The platform supports appointment scheduling, prescription management, and role-based access using a secure Spring Boot architecture.
 
-🚀 Key Highlights
+✨ Features
 
-Role-based access for Admin, Doctor, and Patient
+Role-Based Access Control (Admin, Doctor, Patient)
 
-Appointment request, approval, and status tracking
+Appointment Management – request, approve, reject, and track status
 
-Digital prescription creation and history tracking
+Prescription Management – doctors issue and patients view prescriptions
 
-Secure authentication and structured database design
+Secure Authentication for all users
 
-Clean MVC architecture using Spring Boot
+Structured Database Design for healthcare workflows
 
-👥 User Roles & Features
+Responsive Web UI using Thymeleaf templates
+
+🧑‍⚕️ User Roles
 Admin
 
 Manage doctors and patients
 
-View, assign, or reject appointments
+View and control appointment approvals
 
 Doctor
 
 View assigned appointments
 
-Provide prescriptions
+Create and manage prescriptions
 
 Access prescription history
 
 Patient
 
-View doctors and request appointments
+Browse doctors and request appointments
 
 Track appointment status
 
@@ -39,11 +42,21 @@ View prescribed medicines
 
 🛠 Tech Stack
 
-Frontend: Thymeleaf, HTML5, CSS3, JavaScript
+Frontend
 
-Backend: Java, Spring Boot
+Thymeleaf
 
-Database: MySQL
+HTML5, CSS3, JavaScript
+
+Backend
+
+Java
+
+Spring Boot
+
+Database
+
+MySQL
 
 🗄 Database Entities
 
@@ -55,14 +68,25 @@ Appointment
 
 Prescription
 
-💡 Why This Project?
+🚀 Why This Project?
 
 This project demonstrates:
 
 Real-world CRUD operations
 
-Role-based workflow design
+Role-based system design
 
-Backend–frontend integration
+Backend–frontend integration with Spring Boot
 
-Database modeling for healthcare systems
+Database modeling for healthcare applications
+
+▶️ Running the Project
+git clone https://github.com/your-username/digital-hospital-management-system.git
+cd digital-hospital-management-system
+
+
+Configure MySQL in application.properties
+
+Run the Spring Boot application
+
+Open http://localhost:8080
