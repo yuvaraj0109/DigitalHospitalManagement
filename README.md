@@ -81,7 +81,7 @@ Backend–frontend integration with Spring Boot
 Database modeling for healthcare applications
 
 ▶️ Running the Project
-git clone https://github.com/yuvaraj0109/digital-hospital-management-system.git
+git clone https://github.com/yuvaraj0109/DigitalHospitalManagement.git
 cd digital-hospital-management-system
 
 
